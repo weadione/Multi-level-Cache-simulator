@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Main {
 	public static void main(String[] args) {
 		
-		String fileName = args[0];			    	// comment out this line from the command line
-		//String fileName = "heapsort.addr";     // uncomment this line to run on an IDE
+		//String fileName = args[0];			    	// comment out this line from the command line
+		String fileName = "heapsort.addr";     // uncomment this line to run on an IDE
 		String config = "singlelevel";
 		int l1NumberOfBlocks = 16, l1BytesPerBlock = 32;		// sets the L1 cache size
 		int l2NumberOfBlocks = 64, l2BytesPerBlock = 64;		// sets the L2 cache size
