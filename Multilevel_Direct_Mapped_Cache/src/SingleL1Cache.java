@@ -3,6 +3,7 @@ import java.util.*;
 
 public class SingleL1Cache {
 
+	int addressSize;
 	int offsetLength, indexLength, tagLength, miss =0, hit=0, index, cycles;
 	String tag, array[];
 	
@@ -58,6 +59,18 @@ public class SingleL1Cache {
 	public int getHits(){
 		return hit;
 	}
+
+	public double getHitRatio1(){	//L1캐시 hitRatio
+		return (double)hit/addressSize;
+	}
+
+	public double getMissRatio1(){	//L1캐시 missRatio
+		return (double)miss/addressSize;
+	}
+
+	public double getAvgAccessTime(){  //Average Access Time
+		return getHitRatio1()*10+getMissRatio1()*1000;
+	}
 	
 	/** Return number of cycles*/
 	public int getCycles(){
@@ -66,7 +79,7 @@ public class SingleL1Cache {
 	}
 	
 	public void contentChecker1(ArrayList<String> addresses){
-		
+		this.addressSize=addresses.size();
 		for(String address: addresses){
 
 			index = getIndex(address);

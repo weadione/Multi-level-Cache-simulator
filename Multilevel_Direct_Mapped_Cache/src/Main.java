@@ -7,10 +7,12 @@ public class Main {
 	public static void main(String[] args) {
 		
 		//String fileName = args[0];			    	// comment out this line from the command line
-		String fileName = "heapsort.addr";     // uncomment this line to run on an IDE
-		String config = "singlelevel";
+		String fileName = "assignment.addr";     // uncomment this line to run on an IDE
+		//String config = "singlelevel";
+		String config = "Multilevel";
 		int l1NumberOfBlocks = 16, l1BytesPerBlock = 32;		// sets the L1 cache size
 		int l2NumberOfBlocks = 64, l2BytesPerBlock = 64;		// sets the L2 cache size
+		int l3NumberOfBlocks = 128, l3BytesPerBlock = 128;		// L3 캐시 사이즈 정의
 		
 		ArrayList<String> addresses = new ArrayList<String>();  // this will store all addresses read from the file
 
@@ -35,15 +37,19 @@ public class Main {
 		
 		System.out.println(fileName + " conatins " + addresses.size() + " instructions."); 
 		
+		//L3캐시 관련 내용 출력부 추가
 		if(config.equalsIgnoreCase("Multilevel")){   // if multilevel cache selected
 			
-			MultiLevelCache cache = new  MultiLevelCache(l1NumberOfBlocks, l1BytesPerBlock,l2NumberOfBlocks, l2BytesPerBlock);	// Creating a new single cache object with giving blocks and block sizes
+			MultiLevelCache cache = new  MultiLevelCache(l1NumberOfBlocks, l1BytesPerBlock,l2NumberOfBlocks, l2BytesPerBlock, l3NumberOfBlocks, l3BytesPerBlock);	// Creating a new single cache object with giving blocks and block sizes
 			cache.contentChecker1(addresses);	// Calling the method that checks for content in the cache
 			System.out.println("L1 hits:       " + cache.getHits1());
 			System.out.println("L1 misses:     " + cache.getMisses1());
 			System.out.println("L2 hits:       " + cache.getHits2());
 			System.out.println("L2 misses:     " + cache.getMisses2());
+			System.out.println("L3 hits:       " + cache.getHits3());
+			System.out.println("L3 misses:     " + cache.getMisses3());
 			System.out.println("Cycles:        " + cache.getCycles());
+			System.out.println("Avg Mem access time: " + cache.getAvgAccessTime());
 		}
 		
 		else if(config.equalsIgnoreCase("singlelevel")){	// if single cache was selected
@@ -53,6 +59,7 @@ public class Main {
 			System.out.println("L1 hits:       " +	cache.getHits());
 			System.out.println("L1 misses:     " +  cache.getMisses());
 			System.out.println("L1 cycles:     " +  cache.getCycles());
+			System.out.println("Avg Mem access time: " + cache.getAvgAccessTime());
 		}
 		
 		else{
